@@ -17,6 +17,7 @@ limitations under the License.
 package v1
 
 import (
+	"fmt"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
@@ -57,7 +58,9 @@ var _ webhook.Validator = &NideJob{}
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *NideJob) ValidateCreate() (admission.Warnings, error) {
 	nidejoblog.Info("validate create", "name", r.Name)
-
+	if len(r.Spec.Foo) > 6 {
+		return nil, fmt.Errorf("foo length must be less than 6 characters")
+	}
 	// TODO(user): fill in your validation logic upon object creation.
 	return nil, nil
 }
