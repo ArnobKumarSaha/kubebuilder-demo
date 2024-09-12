@@ -1,0 +1,23 @@
+# permissions for end users to view nidejobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kubebuilder-demo
+    app.kubernetes.io/managed-by: kustomize
+  name: nidejob-viewer-role
+rules:
+- apiGroups:
+  - batch.arnob.com
+  resources:
+  - nidejobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch.arnob.com
+  resources:
+  - nidejobs/status
+  verbs:
+  - get

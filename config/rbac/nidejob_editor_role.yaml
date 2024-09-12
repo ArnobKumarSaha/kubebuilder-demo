@@ -1,0 +1,27 @@
+# permissions for end users to edit nidejobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kubebuilder-demo
+    app.kubernetes.io/managed-by: kustomize
+  name: nidejob-editor-role
+rules:
+- apiGroups:
+  - batch.arnob.com
+  resources:
+  - nidejobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch.arnob.com
+  resources:
+  - nidejobs/status
+  verbs:
+  - get

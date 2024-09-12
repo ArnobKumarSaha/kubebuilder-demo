@@ -1,0 +1,9 @@
+apiVersion: batch.arnob.com/v1
+kind: NideJob
+metadata:
+  labels:
+    app.kubernetes.io/name: kubebuilder-demo
+    app.kubernetes.io/managed-by: kustomize
+  name: nidejob-sample
+spec:
+  # TODO(user): Add fields here
