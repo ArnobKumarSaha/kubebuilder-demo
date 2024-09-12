@@ -50,6 +50,18 @@ func (r *NideJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	_ = log.FromContext(ctx)
 
 	// TODO(user): your logic here
+	var cronJob batchv1.NideJob
+	if err := r.Get(ctx, req.NamespacedName, &cronJob); err != nil {
+		// we'll ignore not-found errors, since they can't be fixed by an immediate
+		// requeue (we'll need to wait for a new notification), and we can get them
+		// on deleted requests.
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	cronJob.Status.ValueOfFoo = cronJob.Spec.Foo
+	if err := r.Status().Update(ctx, &cronJob); err != nil {
+		return ctrl.Result{}, err
+	}
 
 	return ctrl.Result{}, nil
 }
